@@ -83,6 +83,7 @@ RUN apk add --update \
         php7-memcached \
         php7-oauth \
         php7-apcu
+RUN docker-php-ext-install bcmath
 RUN pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
