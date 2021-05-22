@@ -10,14 +10,26 @@ RUN apk add libpng libpng-dev libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev 
 # Install MySql
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
 
-# Install Drush
+
+# Install Drush and Drupal Console
 RUN composer global require drush/drush && \
     composer global update 
+
+# Install Drupal Console
+RUN curl -sS  https://drupalconsole.com/installer -L -o drupal.phar && \
+    mv drupal.phar /usr/local/bin/drupal && \
+    chmod +x /usr/local/bin/drupal 
+
+# Install Drutiny
+RUN curl -OL https://github.com/drutiny/drutiny/releases/download/2.4.3/drutiny2.4.3-php7.2.27.phar  && \
+    mv drutiny2.4.3-php7.2.27.phar  /usr/local/bin/drutiny && \
+    chmod +x /usr/local/bin/drutiny
 
 # PHP packages
 RUN apk add --update \
